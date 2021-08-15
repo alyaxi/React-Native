@@ -9,7 +9,7 @@ import RegisterScreen from "./screens/RegisterScreen";
 const Stack = createNativeStackNavigator();
 
 const globalScreenNavigation = {
-  headerStyle: {backgroundColor: "#2C6BED"},
+  headerStyle: {backgroundColor: "#1768AC"},
   headerTitleStyle: {color: "white"},
   headerTintColor: "white"
 }
