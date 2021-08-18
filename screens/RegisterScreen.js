@@ -3,8 +3,8 @@ import { useLayoutEffect } from "react";
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Button, Input, Text } from "react-native-elements";
-
-const RegisterScreen = ({navigation}) => {
+import { auth } from "../firebase";
+const RegisterScreen = ({ navigation }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,13 +12,23 @@ const RegisterScreen = ({navigation}) => {
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      title: "Back to Login"
+      title: "Back to Login",
     });
   }, [navigation]);
 
   const register = () => {
-
-  }
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((authUser) => {
+        authUser.user.updateProfile({
+          displayName: name,
+          photoURL:
+            imageUrl ||
+            "https://img.favpng.com/25/13/19/samsung-galaxy-a8-a8-user-login-telephone-avatar-png-favpng-dqKEPfX7hPbc6SMVUCteANKwj.jpg",
+        });
+      })
+      .catch((error) => alert(error.message));
+  };
   return (
     <View style={styles.container}>
       <Text h3 style={{ marginBottom: 50, color: "#232323" }}>
@@ -40,7 +50,8 @@ const RegisterScreen = ({navigation}) => {
         />
         <Input
           placeholder="Password"
-          type="text"
+          type="passowrd"
+          secureTextEntry
           value={password}
           onChangeText={(text) => setPassword(text)}
         />
@@ -52,7 +63,12 @@ const RegisterScreen = ({navigation}) => {
           onSubmitEditing={register}
         />
       </View>
-      <Button raised onPress={register} title="Register" containerStyle={styles.button}/>
+      <Button
+        raised
+        onPress={register}
+        title="Register"
+        containerStyle={styles.button}
+      />
     </View>
   );
 };
@@ -61,17 +77,17 @@ export default RegisterScreen;
 
 const styles = StyleSheet.create({
   container: {
-      flex:1,
-      alignItems: "center",
-      justifyContent: "center",
-      padding: 10,
-      backgroundColor: "white"
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 10,
+    backgroundColor: "white",
   },
   button: {
-      width:200,
-      marginTop:10
+    width: 200,
+    marginTop: 10,
   },
   inputContainer: {
-      width: 300
-  }
+    width: 300,
+  },
 });
