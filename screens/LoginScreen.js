@@ -15,7 +15,7 @@ const LoginScreen = ({ navigation }) => {
     return unSubscribe;
   }, []);
   const signIn = () => {
-    auth.signInWithEmailAndPassword(email, password).catch(err => alert(err))
+    auth.signInWithEmailAndPassword(email, password).catch((err) => alert(err));
   };
   return (
     <View style={styles.container}>

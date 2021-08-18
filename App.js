@@ -6,6 +6,7 @@ import LoginScreen from "./screens/LoginScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import RegisterScreen from "./screens/RegisterScreen";
 import HomeScreen from "./screens/HomeScreen";
+import AddChat from "./screens/AddChat"
 
 const Stack = createNativeStackNavigator();
 
@@ -18,13 +19,11 @@ const globalScreenNavigation = {
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={globalScreenNavigation} >
+      <Stack.Navigator screenOptions={globalScreenNavigation}>
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-        />
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="AddChat" component={AddChat} />
       </Stack.Navigator>
     </NavigationContainer>
   );
