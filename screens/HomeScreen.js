@@ -58,20 +58,26 @@ const HomeScreen = ({ navigation }) => {
           <TouchableOpacity activeOpacity={0.5}>
             <AntDesign name="camera" size={24} color="black" />
           </TouchableOpacity>
-          <TouchableOpacity>
-            <SimpleLineIcons onPress={() => {
+          <TouchableOpacity onPress={() => {
               navigation.navigate("AddChat");
-            }} name="pencil" size={24} color="black" />
+            }} >
+            <SimpleLineIcons name="pencil" size={24} color="black" />
           </TouchableOpacity>
         </View>
       ),
     });
   }, [navigation]);
+  const enterChat = (id, chatName) => {
+    navigation.navigate("Chat", {
+      id,
+      chatName,
+    })
+  }
   return (
     <SafeAreaView>
-      <ScrollView>
+      <ScrollView style={styles.container}>
        {chats.map(({id, data: {chatName}})=> (
-         <CustomListItems key={id} id={id} chatName={chatName }/>
+         <CustomListItems key={id} id={id} chatName={chatName } enterChat={enterChat}/>
        ))}
      
       </ScrollView>
@@ -81,4 +87,8 @@ const HomeScreen = ({ navigation }) => {
 
 export default HomeScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    height: "100%",
+  }
+});
