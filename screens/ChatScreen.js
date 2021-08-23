@@ -28,7 +28,9 @@ const ChatScreen = ({ navigation, route }) => {
           <Avatar
             rounded
             source={{
-              uri: "https://img.favpng.com/25/13/19/samsung-galaxy-a8-a8-user-login-telephone-avatar-png-favpng-dqKEPfX7hPbc6SMVUCteANKwj.jpg",
+              uri:
+              messages[0]?.data.photoURL ||
+               "https://img.favpng.com/25/13/19/samsung-galaxy-a8-a8-user-login-telephone-avatar-png-favpng-dqKEPfX7hPbc6SMVUCteANKwj.jpg",
             }}
           />
           <Text style={{ color: "white", marginLeft: 10, fontWeight: "700" }}>
@@ -54,7 +56,7 @@ const ChatScreen = ({ navigation, route }) => {
         </View>
       ),
     });
-  }, [navigation]);
+  }, [navigation, messages]);
   const sendMessage = () => {
     Keyboard.dismiss();
     db.collection("chats").doc(route.params.id).collection("message").add({
@@ -115,7 +117,7 @@ const ChatScreen = ({ navigation, route }) => {
                   <Text style={styles.recieverText}>{data.message}</Text>
                 </View>
               ): (
-                <View style={styles.sender}> 
+                <View key={id} style={styles.sender}> 
                    <Avatar
                    rounded
                    size={30}
@@ -138,7 +140,7 @@ const ChatScreen = ({ navigation, route }) => {
                 </View>
               )
             ))}</ScrollView>
-            <View style={styles.footer}>
+            <View style={styles.footer} >
               <TextInput
                 placeholder="Signal Message"
                 style={styles.textinput}
